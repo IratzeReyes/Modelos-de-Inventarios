@@ -12,7 +12,7 @@ public class ModeloDeInventario {
             case 1:
                 int k; //costo de pedido
                 int d; //demanda
-                int h; //costo de almacenamiento
+                double h; //costo de almacenamiento
                 int l; //tiempo de entrega del pedido
                 int n; //numero de periodos
                 double y; //cantidad optima del pedido
@@ -22,10 +22,10 @@ public class ModeloDeInventario {
                 double TCU; //costo total de inventario
                 System.out.println("Dame el costo del pedido: ");
                 k = lector.nextInt();
-                System.out.println("Dame la demand: ");
+                System.out.println("Dame la demanda: ");
                 d = lector.nextInt();
                 System.out.println("Dame el costo de almacenamiento: ");
-                h = lector.nextInt();
+                h = lector.nextDouble();
                 System.out.println("Dame el tiempo de entrega del pedido: ");
                 l = lector.nextInt();
                 //sacando la cantidad optima del pedido
@@ -49,15 +49,53 @@ public class ModeloDeInventario {
                 System.out.println("El costo total de inventario es: "+TCU);
                 break;
             case 2:
-            
-
-
-
-             
+                double i; //descuento
+                double H; //costo de almacenamiento 
+                int CU; //costo unitario
+                double y2; //cantidad optima del pedido 
+                double CTU; //costo total unitario
+                String condicion; //condicion para el descuento
+                int ofertas; //ofertas para analizar
+                System.out.println("¿Cuantas ofertas tienes?: ");
+                ofertas= lector.nextInt();
+                System.out.println("Dame la demanda: ");
+                d= lector.nextInt();
+                System.out.println("Dame el costo del pedido: ");
+                k= lector.nextInt();
+                System.out.println("Dame el porcentaje de descuento: ");
+                i= lector.nextDouble();
                 
-
-
-
+                double menorCTU= Double.MAX_VALUE;//este lo investigue para ver el menor costo total unitario mas rapido 
+                int mejorOferta=0;
+                for (int m=1; m<=ofertas; m++){
+                    System.out.println("Numero de oferta: " +m);
+                    System.out.println("Dame la condicion del descuento: ");
+                    condicion= lector.next();
+                    System.out.println("Dame el costo unidario: ");
+                    CU= lector.nextInt();
+                    //Sacamos el costo de almacenamiento 
+                    H= (i/100)*CU;
+                    //Sacando la cantidad optima del producto
+                    y2= Math.sqrt((2*k*d)/H);
+                    //Sacando el costo total unitario
+                    CTU= (d*CU)+((k*d)/y2)+((H*y2)/2);
+                    //Mostrar los resultados 
+                    System.out.println("La cantidad optima del producto es: "+y2);
+                    System.out.println("El costo total unitario de: " + m +"es: " +CTU);
+                    System.out.println("Condicion del descuento: " +condicion);
+                    //Encontrando la mejor oferta 
+                    if (CTU < menorCTU){
+                        menorCTU = CTU;
+                        mejorOferta = m;
+                    }
+                }
+                System.out.println("La mejor oferta es la numero: " +mejorOferta+ " con un costo total unitario de: " +menorCTU);
+                break;
+            case 3:
+                System.out.println("Programa finalizado. Gracias por su uso...");
+                break;
+            default:
+                System.out.println("Opcion no valida, intente de nuevo.");      
         }
 
         
